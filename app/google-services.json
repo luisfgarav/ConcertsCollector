@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "33466360031",
+    "firebase_url": "https://concerts-5cb6f.firebaseio.com",
+    "project_id": "concerts-5cb6f",
+    "storage_bucket": "concerts-5cb6f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:33466360031:android:75faa25d70591265fc496a",
+        "android_client_info": {
+          "package_name": "com.example.concertscollector"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "33466360031-bhqp4ogbb6p0743lbmpnn7kcbtor4ums.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.concertscollector",
+            "certificate_hash": "fb34641ccabbb036262ec87bf5926bb323309b94"
+          }
+        },
+        {
+          "client_id": "33466360031-0dgtc6c2c1ggvvgks0ii7s906mslhfpb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaQh40XOdGq99_222epQZlLMf-UGnNeTE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "33466360031-0dgtc6c2c1ggvvgks0ii7s906mslhfpb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
