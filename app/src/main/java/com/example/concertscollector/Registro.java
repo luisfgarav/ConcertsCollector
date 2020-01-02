@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 
 public class Registro extends AppCompatActivity {
@@ -25,7 +26,7 @@ public class Registro extends AppCompatActivity {
     String email, password1, password2;
     ProgressDialog progressDialog;
 
-    private FirebaseAuth auth;
+    private FirebaseAuth auth; //Se pone cada que te vas a meter con autenticacion.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +81,11 @@ public class Registro extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Toast.makeText(Registro.this, "Exito", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(Registro.this, "Fallo", Toast.LENGTH_SHORT).show();
+                            if (task.getException() instanceof FirebaseAuthUserCollisionException){ //Si se presenta una colision
+                                Toast.makeText(Registro.this, "Este correo ya ha sido registrado", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(Registro.this, "Fallo", Toast.LENGTH_SHORT).show();
+                            }
                         }
                         progressDialog.dismiss();
                     }
