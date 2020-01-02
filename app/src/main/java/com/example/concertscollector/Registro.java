@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,15 +19,22 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class Registro extends AppCompatActivity {
 
-    EditText et_email, et_password1, et_password2;
+    EditText et_email, et_password1, et_password2, et_nombre, et_apellidos;
     Button btn_terminar;
-    String email, password1, password2;
+    String email, password1, password2, nombre, apellidos;
     ProgressDialog progressDialog;
 
     private FirebaseAuth auth; //Se pone cada que te vas a meter con autenticacion.
+    private FirebaseDatabase database; //Se pone cada que se interactua con la base de datos
+    private DatabaseReference reference; //Igual que lo de arriba
+    private FirebaseUser firebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +45,13 @@ public class Registro extends AppCompatActivity {
         et_email = findViewById(R.id.et_email);
         et_password1 = findViewById(R.id.et_password1);
         et_password2 = findViewById(R.id.et_password2);
+        et_nombre = findViewById(R.id.et_nombre);
+        et_apellidos = findViewById(R.id.et_apellido);
         btn_terminar = findViewById(R.id.btn_terminar);
         progressDialog = new ProgressDialog(this);
-        // Initialize Firebase Auth
+        // Initialize Firebase
         auth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
         //-----------------------------------------------------
 
         btn_terminar.setOnClickListener(new View.OnClickListener() {
@@ -54,11 +65,14 @@ public class Registro extends AppCompatActivity {
     }
 
     private void terminarRegistro() {
+        nombre = et_nombre.getText().toString().trim();
+        apellidos = et_apellidos.getText().toString().trim();
         email = et_email.getText().toString().trim();
         password1 = et_password1.getText().toString().trim();
         password2 = et_password2.getText().toString().trim();
 
-        if (!email.equals("") && !password1.equals("") && !password2.equals("")) {
+        if (!email.equals("") && !password1.equals("") && !password2.equals("") && !nombre.equals("")
+        && !apellidos.equals("")) {
             if (validarPasswords()) {
                 progressDialog.setMessage("Realizando registro...");
                 progressDialog.show();
@@ -79,7 +93,30 @@ public class Registro extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(Registro.this, "Exito", Toast.LENGTH_SHORT).show();
+                            firebaseUser = auth.getCurrentUser();
+                            assert firebaseUser != null;
+                            String userid = firebaseUser.getUid();
+                            reference = FirebaseDatabase.getInstance().getReference("Usuarios").child(userid);
+
+                            HashMap<String, String> hashMap = new HashMap<>();
+                            hashMap.put("id", userid);
+                            hashMap.put("nombre", nombre);
+                            hashMap.put("apellidos", apellidos);
+                            hashMap.put("correo", email);
+
+                            reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()){
+                                        Intent intent = new Intent(Registro.this, Prueba.class);
+                                        Toast.makeText(Registro.this, "Registro exitoso", Toast.LENGTH_SHORT).show();
+                                        startActivity(intent);
+                                    } else{
+                                        Toast.makeText(Registro.this, "Ha ocurrido un error", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+
                         } else {
                             if (task.getException() instanceof FirebaseAuthUserCollisionException){ //Si se presenta una colision
                                 Toast.makeText(Registro.this, "Este correo ya ha sido registrado", Toast.LENGTH_SHORT).show();

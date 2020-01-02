@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,10 +26,16 @@ public class MainActivity extends AppCompatActivity {
     String email, password;
     ProgressDialog progressDialog;
     private FirebaseAuth auth;
+    private FirebaseUser firebaseUser;
 
     @Override
     protected void onStart() {
         super.onStart();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (firebaseUser != null){
+            Intent intent = new Intent(getApplication(), Prueba.class);
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -82,6 +89,8 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) { //Si el login es exitoso
                             Toast.makeText(MainActivity.this, "Bienvenido", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getApplication(), Prueba.class);
+                            startActivity(intent);
                         } else {
                             Toast.makeText(MainActivity.this, "Este usuario no existe", Toast.LENGTH_SHORT).show();
                         }
