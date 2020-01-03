@@ -11,7 +11,11 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Prueba"></activity>
+        <activity
+            android:name=".Feed"
+            android:label="@string/title_activity_feed"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".Prueba" />
         <activity android:name=".Registro" />
         <activity android:name=".MainActivity">
             <intent-filter>

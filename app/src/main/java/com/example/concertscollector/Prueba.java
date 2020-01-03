@@ -19,7 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Prueba extends AppCompatActivity {
 
-    Button btn_sesion;
+    Button btn_sesion,btn_feed;
     TextView tv_mensaje;
     String nombre;
 
@@ -34,6 +34,7 @@ public class Prueba extends AppCompatActivity {
         setContentView(R.layout.activity_prueba);
         btn_sesion = findViewById(R.id.btn_sesion);
         tv_mensaje = findViewById(R.id.tv_mensaje);
+        btn_feed = findViewById(R.id.btn_feed);
         database = FirebaseDatabase.getInstance();
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -56,6 +57,14 @@ public class Prueba extends AppCompatActivity {
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(getApplication(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btn_feed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplication(),Feed.class);
                 startActivity(intent);
             }
         });
