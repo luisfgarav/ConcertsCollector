@@ -1,10 +1,12 @@
 package com.example.concertscollector;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,17 +26,22 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class Registro extends AppCompatActivity {
 
     EditText et_email, et_password1, et_password2, et_nombre, et_apellidos;
     Button btn_terminar;
     String email, password1, password2, nombre, apellidos;
     ProgressDialog progressDialog;
+    CircleImageView imagen;
 
     private FirebaseAuth auth; //Se pone cada que te vas a meter con autenticacion.
     private FirebaseDatabase database; //Se pone cada que se interactua con la base de datos
     private DatabaseReference reference; //Igual que lo de arriba
     private FirebaseUser firebaseUser;
+
+    private static final int GALLERY_INTENT = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +56,20 @@ public class Registro extends AppCompatActivity {
         et_apellidos = findViewById(R.id.et_apellido);
         btn_terminar = findViewById(R.id.btn_terminar);
         progressDialog = new ProgressDialog(this);
+        imagen = findViewById(R.id.imagen);
         // Initialize Firebase
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         //-----------------------------------------------------
+
+        imagen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent, GALLERY_INTENT);
+            }
+        });
 
         btn_terminar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +79,16 @@ public class Registro extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK){
+            Uri uri = data.getData();
+            imagen.setImageURI(uri);
+        }
     }
 
     private void terminarRegistro() {
