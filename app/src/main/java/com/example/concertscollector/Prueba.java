@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -17,11 +18,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class Prueba extends AppCompatActivity {
 
     Button btn_sesion,btn_feed;
     TextView tv_mensaje;
-    String nombre;
+    String nombre, imagenURL;
+    CircleImageView imagen;
 
     private FirebaseAuth auth; //Se pone cada que te vas a meter con autenticacion.
     private FirebaseDatabase database; //Se pone cada que se interactua con la base de datos
@@ -35,6 +39,7 @@ public class Prueba extends AppCompatActivity {
         btn_sesion = findViewById(R.id.btn_sesion);
         tv_mensaje = findViewById(R.id.tv_mensaje);
         btn_feed = findViewById(R.id.btn_feed);
+        imagen = findViewById(R.id.imagen);
         database = FirebaseDatabase.getInstance();
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -43,7 +48,12 @@ public class Prueba extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 nombre = dataSnapshot.child("nombre").getValue().toString();
+                imagenURL = dataSnapshot.child("imageProfile").getValue().toString();
                 tv_mensaje.setText("Bienvenido:\n" + nombre);
+
+                if (!imagenURL.equals("default")) {
+                    Glide.with(getApplication()).load(imagenURL).into(imagen);
+                }
             }
 
             @Override

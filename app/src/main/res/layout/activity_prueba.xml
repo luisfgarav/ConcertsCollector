@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".Prueba">
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imagen"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginBottom="45dp"
+        android:src="@drawable/defaultimage"
+        app:layout_constraintBottom_toTopOf="@+id/tv_mensaje"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
         android:id="@+id/tv_mensaje"
         android:layout_width="wrap_content"
@@ -36,7 +47,7 @@
         android:id="@+id/btn_feed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/round1"
         android:padding="20dp"
         android:text="Ir a feed"
@@ -44,6 +55,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_sesion" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
