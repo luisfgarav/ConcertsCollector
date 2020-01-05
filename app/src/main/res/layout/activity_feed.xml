@@ -46,30 +46,23 @@
                 app:srcCompat="@drawable/search"/>
 
         </RelativeLayout>
-        <RelativeLayout
+
+        <androidx.viewpager.widget.ViewPager
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/viewpager"
+            android:layout_below="@+id/ly_cabecera"
+            android:layout_above="@id/ly_tabs"/>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/ly_tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="@color/colorPrimaryDark"
-            >
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/btn_home"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentLeft="true"
-                android:layout_margin="@dimen/fab_margin"
-                app:srcCompat="@drawable/home"/>
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/btn_add"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_toRightOf="@id/btn_home"
-                android:layout_margin="@dimen/fab_margin"
-                app:srcCompat="@drawable/plus"/>
-
-        </RelativeLayout>
+            app:tabIndicatorHeight="2dp"
+            app:tabMode="fixed"
+            app:tabGravity="fill"/>
 
     </RelativeLayout>
 
