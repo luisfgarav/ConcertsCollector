@@ -14,10 +14,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.View;
+import android.widget.ImageView;
 
 public class Feed extends AppCompatActivity {
 
-    FloatingActionButton btn_messages,btn_search;
+    ImageView btn_messages,btn_search;
     TabLayout tabLayout;
     int[] tabIcons={R.drawable.profile,R.drawable.home,R.drawable.plus,R.drawable.heart,R.drawable.search};
     ViewPager viewPager;
@@ -34,8 +35,9 @@ public class Feed extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.ly_tabs);
 
         //Filtro de color a botones
+        /*
         btn_messages.setColorFilter(Color.parseColor("#E0E0E0"), PorterDuff.Mode.SRC_IN);
-        btn_search.setColorFilter(Color.parseColor("#E0E0E0"), PorterDuff.Mode.SRC_IN);
+        btn_search.setColorFilter(Color.parseColor("#E0E0E0"), PorterDuff.Mode.SRC_IN);*/
 
         //Carga de ViewPager
         loadViewPager(tabLayout);
