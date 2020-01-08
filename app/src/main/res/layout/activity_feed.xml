@@ -16,34 +16,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp" >
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp" >
 
             <Button
                 android:id="@+id/btn_nombreApp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/fab_margin"
                 android:background="@color/colorPrimary"
                 android:textColor="#fff"
                 android:text="Concerts App"
                 />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
+            <ImageView
+                app:backgroundTint="@color/colorPrimary"
                 android:id="@+id/btn_messages"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_alignParentRight="true"
-                android:layout_margin="@dimen/fab_margin"
-                app:srcCompat="@drawable/message"/>
+                android:padding="12dp"
+                android:src="@drawable/message"/>
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
+            <ImageView
+                app:backgroundTint="@color/colorPrimary"
                 android:id="@+id/btn_search"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:padding="12dp"
                 android:layout_toLeftOf="@id/btn_messages"
-                android:layout_margin="@dimen/fab_margin"
-                app:srcCompat="@drawable/search"/>
+                android:src="@drawable/search"/>
 
         </RelativeLayout>
 
