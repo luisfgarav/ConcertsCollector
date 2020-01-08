@@ -25,7 +25,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class Fragment_profile extends Fragment {
 
     View view;
-    Button btn_sesion;
+    Button btn_sesion, btn_editar;
     TextView tv_nombre,tv_usuario;
     String nombre, apellidos, username, imagenURL;
     CircleImageView imagen;
@@ -48,6 +48,7 @@ public class Fragment_profile extends Fragment {
         tv_nombre = view.findViewById(R.id.tv_nombre);
         tv_usuario = view.findViewById(R.id.tv_usuario);
         imagen = view.findViewById(R.id.imagen);
+        btn_editar = view.findViewById(R.id.btn_editar);
         database = FirebaseDatabase.getInstance();
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -73,6 +74,14 @@ public class Fragment_profile extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+
+        btn_editar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), EditarPerfil.class);
+                startActivity(intent);
             }
         });
 
